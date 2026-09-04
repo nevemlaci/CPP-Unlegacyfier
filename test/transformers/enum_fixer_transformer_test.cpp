@@ -1,4 +1,4 @@
-#include "frontend/unlegacyfier_factory.h"
+#include "frontend/unlegacyfier_factory.hpp"
 
 #include "clang/AST/Decl.h"
 #include "clang/AST/Expr.h"
@@ -8,9 +8,9 @@
 #include "clang/Lex/Lexer.h"
 #include "clang/Tooling/Tooling.h"
 
-#include <config/unlegacyfier_config.h>
+#include <config/unlegacyfier_config.hpp>
 #include <gtest/gtest.h>
-#include <transformers/enum_fixer_transformer.h>
+#include <transformers/enum_fixer_transformer.hpp>
 using namespace clang::ast_matchers;
 
 std::string rewriteCode(const std::string& code, UnlegacyfierConfig config) {

@@ -1,5 +1,5 @@
-#include "frontend/unlegacyfier_factory.h"
-#include "frontend/unlegacyfier_frontend.h"
+#include "frontend/unlegacyfier_factory.hpp"
+#include "frontend/unlegacyfier_frontend.hpp"
 
 UnlegacyfierActionFactory::UnlegacyfierActionFactory(UnlegacyfierConfig config,
                                                      nl::ReplacementMapRef shared_replacement_map)

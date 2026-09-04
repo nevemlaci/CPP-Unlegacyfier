@@ -1,4 +1,4 @@
-#include "transformers/class_owned_ptr_to_unique_transformer.h"
+#include "transformers/class_owned_ptr_to_unique_transformer.hpp"
 
 #include "clang/AST/Decl.h"
 #include "clang/AST/ExprCXX.h"

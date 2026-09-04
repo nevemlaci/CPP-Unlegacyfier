@@ -1,7 +1,7 @@
 #pragma once
 
-#include "config/unlegacyfier_config.h"
-#include "util/types.h"
+#include "config/unlegacyfier_config.hpp"
+#include "util/types.hpp"
 
 #include "clang/AST/ASTConsumer.h"
 #include "clang/AST/ASTContext.h"

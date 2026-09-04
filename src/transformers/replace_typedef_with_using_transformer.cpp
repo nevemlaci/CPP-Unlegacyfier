@@ -1,4 +1,4 @@
-#include "transformers/replace_typedef_with_using_transformer.h"
+#include "transformers/replace_typedef_with_using_transformer.hpp"
 
 #include "clang/Basic/SourceLocation.h"
 #include "clang/Lex/Lexer.h"

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "config/unlegacyfier_config.h"
+#include "config/unlegacyfier_config.hpp"
 
 #include "clang/Tooling/Tooling.h"
 
 #include <memory>
-#include <util/types.h>
+#include <util/types.hpp>
 
 class UnlegacyfierActionFactory : public clang::tooling::FrontendActionFactory {
     UnlegacyfierConfig config;

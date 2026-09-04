@@ -1,9 +1,9 @@
-#include "frontend/unlegacyfier_consumer.h"
-#include "transformers/add_missing_override_transformer.h"
-#include "transformers/enum_fixer_transformer.h"
-#include "transformers/member_begin_end_fixer_transformer.h"
-#include "transformers/replace_typedef_with_using_transformer.h"
-#include "transformers/shorter_function_object_transformer.h"
+#include "frontend/unlegacyfier_consumer.hpp"
+#include "transformers/add_missing_override_transformer.hpp"
+#include "transformers/enum_fixer_transformer.hpp"
+#include "transformers/member_begin_end_fixer_transformer.hpp"
+#include "transformers/replace_typedef_with_using_transformer.hpp"
+#include "transformers/shorter_function_object_transformer.hpp"
 
 UnlegacyfierConsumer::UnlegacyfierConsumer(clang::ASTContext& context, UnlegacyfierConfig config,
                                            nl::ReplacementMapRef shared_replacement_map)

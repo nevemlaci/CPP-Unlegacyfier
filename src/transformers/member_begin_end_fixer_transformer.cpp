@@ -1,4 +1,4 @@
-#include "transformers/member_begin_end_fixer_transformer.h"
+#include "transformers/member_begin_end_fixer_transformer.hpp"
 
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 #include "clang/ASTMatchers/ASTMatchers.h"

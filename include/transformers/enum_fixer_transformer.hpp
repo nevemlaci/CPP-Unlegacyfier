@@ -2,7 +2,7 @@
 
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 
-#include <transformer/transformer.h>
+#include <transformer/transformer.hpp>
 
 class EnumFixerTransformer : public Transformer {
   public:

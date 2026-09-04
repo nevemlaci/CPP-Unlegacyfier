@@ -1,4 +1,4 @@
-#include "transformers/shorter_function_object_transformer.h"
+#include "transformers/shorter_function_object_transformer.hpp"
 
 #include "clang/AST/ExprCXX.h"
 #include "clang/AST/TypeLoc.h"

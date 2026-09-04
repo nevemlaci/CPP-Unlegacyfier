@@ -1,10 +1,10 @@
-#include "frontend/unlegacyfier_consumer.h"
+#include "frontend/unlegacyfier_consumer.hpp"
 
 #include "clang/AST/ASTConsumer.h"
 #include "clang/Frontend/FrontendAction.h"
 
 #include <clang/Frontend/CompilerInstance.h>
-#include <frontend/unlegacyfier_frontend.h>
+#include <frontend/unlegacyfier_frontend.hpp>
 
 UnlegacyfierFrontend::UnlegacyfierFrontend(UnlegacyfierConfig config,
                                            nl::ReplacementMapRef shared_replacement_map)

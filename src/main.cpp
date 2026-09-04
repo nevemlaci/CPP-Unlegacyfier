@@ -1,8 +1,8 @@
 ﻿#include "frontend/diff_print_frontend.hpp"
-#include "frontend/unlegacyfier_factory.h"
+#include "frontend/unlegacyfier_factory.hpp"
 #include "frontend/vscode_preview_frontend.hpp"
 #include "frontend/yaml_frontend.hpp"
-#include "util/replacement_map.h"
+#include "util/replacement_map.hpp"
 
 #include <clang/Tooling/ArgumentsAdjusters.h>
 #include <clang/Tooling/CommonOptionsParser.h>

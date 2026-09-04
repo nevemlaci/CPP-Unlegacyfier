@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <transformer/transformer.h>
+#include <transformer/transformer.hpp>
 
 class MemberBeginEndFixerTransformer : public Transformer {
   public:

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "transformer/transformer.h"
+#include "transformer/transformer.hpp"
 
 namespace clang {
 namespace ast_matchers {

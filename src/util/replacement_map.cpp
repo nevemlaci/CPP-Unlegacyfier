@@ -1,4 +1,4 @@
-#include "util/replacement_map.h"
+#include "util/replacement_map.hpp"
 
 namespace nl {
 ReplacementsMapWrapper::ReplacementsMapWrapper(

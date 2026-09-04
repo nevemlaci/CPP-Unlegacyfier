@@ -1,6 +1,7 @@
 #include "frontend/diff_print_frontend.hpp"
 
 #include <dtl/dtl.hpp>
+#include <sstream>
 
 std::array<unsigned, 2>
 DiffPrintFrontend::get_file_position_from_byte_offset(unsigned offset, llvm::StringRef content) {

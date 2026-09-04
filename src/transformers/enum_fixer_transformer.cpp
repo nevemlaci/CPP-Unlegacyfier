@@ -1,4 +1,4 @@
-#include "transformers/enum_fixer_transformer.h"
+#include "transformers/enum_fixer_transformer.hpp"
 
 #include "clang/AST/Decl.h"
 #include "clang/AST/Expr.h"

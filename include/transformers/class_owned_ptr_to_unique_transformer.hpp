@@ -1,6 +1,6 @@
 #pragma once
 
-#include "transformer/transformer.h"
+#include "transformer/transformer.hpp"
 class ClassOwnedPointerToUniqueTransformer : public Transformer {
   public:
     using Transformer::Transformer;

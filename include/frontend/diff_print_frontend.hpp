@@ -1,10 +1,9 @@
 #pragma once
 
-#include "util/types.h"
+#include "util/types.hpp"
 
 #include <llvm/Support/MemoryBuffer.h>
 #include <llvm/Support/raw_ostream.h>
-#include <sstream>
 
 class DiffPrintFrontend {
     nl::ReplacementMapRef replacement_map;

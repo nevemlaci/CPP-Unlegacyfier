@@ -1,6 +1,6 @@
 #pragma once
 
-#include "util/types.h"
+#include "util/types.hpp"
 
 #include <clang/Tooling/ReplacementsYaml.h>
 #include <llvm/Support/FileSystem.h>

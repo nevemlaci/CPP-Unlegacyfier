@@ -1,6 +1,6 @@
 #pragma once
 
-#include "util/types.h"
+#include "util/types.hpp"
 
 #include <llvm/Support/FileSystem.h>
 #include <llvm/Support/JSON.h>

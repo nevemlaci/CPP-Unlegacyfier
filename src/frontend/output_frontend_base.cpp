@@ -1,6 +1,6 @@
 #include "frontend/output_frontend_base.hpp"
 
-#include "util/types.h"
+#include "util/types.hpp"
 
 #pragma once
 

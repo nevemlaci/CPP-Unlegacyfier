@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Launch the main application with all the transformers available.
+            // Launches in diff mode.
+            "name": "(gdb) Launch with all transformers in diff mode",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/unlegacifier",
+            "args": [
+                "./test_inputs/test.cpp",
+                "--enum-class-fixer",
+                "--begin-end-fixer",
+                "--shorter-functor",
+                "--add-missing-override",
+                "--replace-typedef-using",
+                "--frontends=diff",
+                "--",
+                "-std=c++17"
+            ],
+            "preLaunchTask": "CMake: build main",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

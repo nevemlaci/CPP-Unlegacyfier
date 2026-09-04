@@ -1,0 +1,22 @@
+---
+Language:        Cpp
+BasedOnStyle:    LLVM
+
+# Indentation of 4 spaces
+IndentWidth:     4
+TabWidth:        4
+UseTab:          Never
+
+# Attach braces to the end of the line with a space
+BreakBeforeBraces: Attach
+InsertBraces:    true
+
+# Include sorting behavior
+SortIncludes:    CaseSensitive
+IncludeBlocks:   Regroup
+
+# Additional common defaults
+PointerAlignment: Left
+ColumnLimit:      100
+IndentCaseLabels: true
+SeparateDefinitionBlocks: Always

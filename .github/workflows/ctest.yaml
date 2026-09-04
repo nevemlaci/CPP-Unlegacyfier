@@ -2,7 +2,7 @@ name: Unit tests
 
 on:
   push:
-    branches: [ "master", "workflow" ]
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -22,6 +22,7 @@ jobs:
       with:
         packages: clang-19 llvm-dev libclang-dev libffi-dev libedit-dev zlib1g-dev libzstd-dev libcurl4-openssl-dev ninja-build
         version: 1.0
+        
     - name: Configure CMake
       run: cmake -S . -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja
 

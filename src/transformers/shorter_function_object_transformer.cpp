@@ -43,17 +43,26 @@ void ShorterFunctionObjectTransformer::run(
 
 void ShorterFunctionObjectTransformer::start(clang::ast_matchers::MatchFinder& finder) {
     using namespace clang::ast_matchers;
+    // clang-format off
     auto matcher =
         cxxTemporaryObjectExpr(
-            hasDeclaration(cxxMethodDecl(ofClass(classTemplateSpecializationDecl(
-                hasAnyName("::std::greater", "::std::less", "::std::greater_equal",
+            unless(isExpansionInSystemHeader()),
+            hasDeclaration(
+                cxxMethodDecl(
+                    ofClass(
+                        classTemplateSpecializationDecl(
+                            hasAnyName("::std::greater", "::std::less", "::std::greater_equal",
                            "::std::less_equal", "::std::equal_to", "::std::not_equal_to",
                            "::std::plus", "::std::minus", "::std::multiplies", "::std::divides",
                            "::std::modulus", "::std::bit_and", "::std::bit_or", "::std::bit_xor",
-                           "::std::logical_and", "::std::logical_or", "::std::logical_not"),
-                unless(hasTemplateArgument(0, refersToType(voidType()))),
-                unless(isExpansionInSystemHeader()))))))
-            .bind("functor_expr");
-
+                           "::std::logical_and", "::std::logical_or", "::std::logical_not"
+                        ),
+                            unless(hasTemplateArgument(0, refersToType(voidType())))
+                        )
+                    )
+                )
+            )
+        ).bind("functor_expr");
+    // clang-format on
     finder.addMatcher(matcher, this);
 }

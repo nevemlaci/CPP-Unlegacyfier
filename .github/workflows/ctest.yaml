@@ -17,8 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Get Depencencies
-      run: sudo apt update && sudo apt install -y clang-19 llvm-dev libclang-dev libffi-dev libedit-dev zlib1g-dev libzstd-dev libcurl4-openssl-dev ninja-build
+    - name: Cache and Install APT Dependencies
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: clang-19 llvm-dev libclang-dev libffi-dev libedit-dev zlib1g-dev libzstd-dev libcurl4-openssl-dev ninja-build
+        version: 1.0
     - name: Configure CMake
       run: cmake -S . -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja
 

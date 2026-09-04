@@ -1,0 +1,35 @@
+name: Unit tests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  BUILD_TYPE: Release
+  CC: clang-19
+  CXX: clang++-19
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Cache and Install APT Dependencies
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: clang-19 llvm-dev libclang-dev libffi-dev libedit-dev zlib1g-dev libzstd-dev libcurl4-openssl-dev ninja-build
+        version: 1.0
+        
+    - name: Configure CMake
+      run: cmake -S . -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{env.BUILD_TYPE}}
+

@@ -1,4 +1,4 @@
-# C++ Unlegacifier and Refactor tool
+# C++ Unlegacyfier and Refactor tool
 
 This tool uses Clang's LibTooling to discorver potential refactor opportunities and potentially upgradable legacy code.
 
@@ -35,7 +35,7 @@ cmake --build build
 ## Running
 
 ```
-USAGE: unlegacifier [options] <source0> [... <sourceN>] -- [options for clang]
+USAGE: unlegacyfier [options] <source0> [... <sourceN>] -- [options for clang]
 ```
 
 For example this command runs the tool on `test.cpp` with the `enum-class-fixer` transformer enabled
@@ -43,5 +43,5 @@ with the `diff` frontend (prints the diff for each file to stdout). The underlyi
 run in standard conforming C++17 mode.
 
 ```bash
-./build/unlegacifier --enum-class-fixer --frontends=diff test_inputs/test.cpp -- --std=c++17
+./build/unlegacyfier --enum-class-fixer --frontends=diff test_inputs/test.cpp -- --std=c++17
 ```

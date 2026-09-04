@@ -6,7 +6,7 @@
 			"label": "CMake: build main",
 			"command": "build",
 			"targets": [
-				"unlegacifier"
+				"unlegacyfier"
 			],
 			"group": "build",
 			"problemMatcher": [],

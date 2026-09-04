@@ -1,4 +1,4 @@
-#include "frontend/unlegacifier_factory.h"
+#include "frontend/unlegacyfier_factory.h"
 
 #include "clang/AST/Decl.h"
 #include "clang/AST/Expr.h"
@@ -8,16 +8,16 @@
 #include "clang/Lex/Lexer.h"
 #include "clang/Tooling/Tooling.h"
 
-#include <config/unlegacifier_config.h>
+#include <config/unlegacyfier_config.h>
 #include <gtest/gtest.h>
 #include <transformers/enum_fixer_transformer.h>
 using namespace clang::ast_matchers;
 
-std::string rewriteCode(const std::string& code, UnlegacifierConfig config) {
+std::string rewriteCode(const std::string& code, UnlegacyfierConfig config) {
     std::map<std::string, clang::tooling::Replacements> raw_map;
     nl::ReplacementsMapWrapper wrapper(raw_map); //[cite: 2]
 
-    UnlegacifierActionFactory factory(config, wrapper);
+    UnlegacyfierActionFactory factory(config, wrapper);
 
     std::vector<std::string> args = {"-std=c++17", "-fsyntax-only"};
     bool success = clang::tooling::runToolOnCodeWithArgs(factory.create(), code, args, "input.cpp");
@@ -38,7 +38,7 @@ std::string rewriteCode(const std::string& code, UnlegacifierConfig config) {
 }
 
 TEST(EnumFixerTest, ModifiedEnumIsScoped) {
-    UnlegacifierConfig config;
+    UnlegacyfierConfig config;
     config.EnableEnumFixer = true;
 
     std::string input =
@@ -61,7 +61,7 @@ enum Color {Red, Green, Blue};
 }
 
 TEST(EnumFixerTest, EnumReferencesAreCorrectlyQualified) {
-    UnlegacifierConfig config;
+    UnlegacyfierConfig config;
     config.EnableEnumFixer = true;
 
     std::string input =

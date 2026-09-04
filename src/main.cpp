@@ -1,5 +1,5 @@
 ﻿#include "frontend/diff_print_frontend.hpp"
-#include "frontend/unlegacifier_factory.h"
+#include "frontend/unlegacyfier_factory.h"
 #include "frontend/vscode_preview_frontend.hpp"
 #include "frontend/yaml_frontend.hpp"
 #include "util/replacement_map.h"
@@ -66,7 +66,7 @@ int main(int argc, const char** argv) {
                                          optionsParser.getSourcePathList());
     auto& map = tool.getReplacements();
     nl::ReplacementsMapWrapper shared_replacement_map(map);
-    UnlegacifierConfig config{OptEnumFixer, OptBeginEnd, OptShorterFunctor, OptAddMissingOverride,
+    UnlegacyfierConfig config{OptEnumFixer, OptBeginEnd, OptShorterFunctor, OptAddMissingOverride,
                               OptReplaceTypedefWithUsing};
 
     tool.appendArgumentsAdjuster(clang::tooling::getInsertArgumentAdjuster(
@@ -74,7 +74,7 @@ int main(int argc, const char** argv) {
     tool.appendArgumentsAdjuster(getInsertArgumentAdjuster(
         "-resource-dir=" CLANG_RESOURCE_DIR, clang::tooling::ArgumentInsertPosition::BEGIN));
 
-    UnlegacifierActionFactory factory(config, shared_replacement_map);
+    UnlegacyfierActionFactory factory(config, shared_replacement_map);
 
     auto result = tool.run(&factory);
     DiffPrintFrontend diff_print_frontend(shared_replacement_map);

@@ -10,7 +10,7 @@
             "name": "(gdb) Launch with all transformers in diff mode",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/unlegacifier",
+            "program": "${workspaceFolder}/build/unlegacyfier",
             "args": [
                 "./test_inputs/test.cpp",
                 "--enum-class-fixer",

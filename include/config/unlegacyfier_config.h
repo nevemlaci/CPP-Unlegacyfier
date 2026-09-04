@@ -1,6 +1,6 @@
 #pragma once
 
-struct UnlegacifierConfig {
+struct UnlegacyfierConfig {
     bool EnableEnumFixer = false;
     bool EnableBeginEndFixer = false;
     bool EnableShorterFunctor = false;

@@ -45,7 +45,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Core lib
-add_library(unlegacifier_core STATIC
+add_library(unlegacyfier_core STATIC
     src/transformer/transformer.cpp
     src/transformers/enum_fixer_transformer.cpp
     src/transformers/member_begin_end_fixer_transformer.cpp
@@ -62,26 +62,26 @@ add_library(unlegacifier_core STATIC
     src/frontend/vscode_preview_frontend.cpp
 )
 
-target_include_directories(unlegacifier_core PUBLIC include vendor)
+target_include_directories(unlegacyfier_core PUBLIC include vendor)
 
-target_link_libraries(unlegacifier_core PUBLIC clang-cpp LLVM)
+target_link_libraries(unlegacyfier_core PUBLIC clang-cpp LLVM)
 
-target_compile_definitions(unlegacifier_core PUBLIC
+target_compile_definitions(unlegacyfier_core PUBLIC
     CLANG_RESOURCE_DIR="${LLVM_LIBRARY_DIR}/clang/${LLVM_VERSION_MAJOR}"
 )
 
 # CLI target
-add_executable(unlegacifier
+add_executable(unlegacyfier
     src/main.cpp
 )
 
-target_link_libraries(unlegacifier PRIVATE unlegacifier_core)
+target_link_libraries(unlegacyfier PRIVATE unlegacyfier_core)
 
 # Test target
-add_executable(unlegacifier_tests test/transformers/enum_fixer_transformer_test.cpp)
+add_executable(unlegacifyer_tests test/transformers/enum_fixer_transformer_test.cpp)
 
-target_link_libraries(unlegacifier_tests PUBLIC GTest::gtest_main unlegacifier_core)
+target_link_libraries(unlegacifyer_tests PUBLIC GTest::gtest_main unlegacyfier_core)
 
 include(GoogleTest)
 
-gtest_discover_tests(unlegacifier_tests)
+gtest_discover_tests(unlegacifyer_tests)

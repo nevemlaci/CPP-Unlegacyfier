@@ -1,16 +1,15 @@
-#include "frontend/unlegacifier_consumer.h"
-
+#include "frontend/unlegacyfier_consumer.h"
 #include "transformers/add_missing_override_transformer.h"
 #include "transformers/enum_fixer_transformer.h"
 #include "transformers/member_begin_end_fixer_transformer.h"
 #include "transformers/replace_typedef_with_using_transformer.h"
 #include "transformers/shorter_function_object_transformer.h"
 
-UnlegacifierConsumer::UnlegacifierConsumer(clang::ASTContext& context, UnlegacifierConfig config,
+UnlegacyfierConsumer::UnlegacyfierConsumer(clang::ASTContext& context, UnlegacyfierConfig config,
                                            nl::ReplacementMapRef shared_replacement_map)
     : config(config), shared_replacement_map(shared_replacement_map) {}
 
-void UnlegacifierConsumer::HandleTranslationUnit(clang::ASTContext& context) {
+void UnlegacyfierConsumer::HandleTranslationUnit(clang::ASTContext& context) {
     rewriter.setSourceMgr(context.getSourceManager(), context.getLangOpts());
 
     EnumFixerTransformer enum_fixer(context, rewriter, shared_replacement_map);

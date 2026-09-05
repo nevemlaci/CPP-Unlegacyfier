@@ -34,10 +34,10 @@ void EnumFixerTransformer::run(const clang::ast_matchers::MatchFinder::MatchResu
         shared_replacement_map.add_replacement(rep);
     }
 
-    if (const auto refExpr = result.Nodes.getNodeAs<DeclRefExpr>("enum_ref")) {
-        const auto enum_d = result.Nodes.getNodeAs<EnumDecl>("enum_decl");
+    if (const auto* const refExpr = result.Nodes.getNodeAs<DeclRefExpr>("enum_ref")) {
+        const auto* const enum_d = result.Nodes.getNodeAs<EnumDecl>("enum_decl");
 
-        if (!enum_d || enum_d->getName().empty()) {
+        if ((enum_d == nullptr) || enum_d->getName().empty()) {
             return;
         }
 

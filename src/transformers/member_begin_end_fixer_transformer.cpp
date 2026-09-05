@@ -26,10 +26,10 @@ void MemberBeginEndFixerTransformer::run(
     const clang::ast_matchers::MatchFinder::MatchResult& result) {
     using namespace clang;
 
-    const auto beginCall = result.Nodes.getNodeAs<CXXMemberCallExpr>("begin_call");
-    const auto beginContainer = result.Nodes.getNodeAs<Expr>("begin_container_expr");
+    const auto* const beginCall = result.Nodes.getNodeAs<CXXMemberCallExpr>("begin_call");
+    const auto* const beginContainer = result.Nodes.getNodeAs<Expr>("begin_container_expr");
 
-    if (beginCall && beginContainer) {
+    if ((beginCall != nullptr) && (beginContainer != nullptr)) {
         run_impl(result, beginCall, beginContainer, "std::begin");
     }
 }
@@ -38,7 +38,7 @@ void MemberBeginEndFixerTransformer::run_impl(
     const clang::ast_matchers::MatchFinder::MatchResult& result,
     const clang::CXXMemberCallExpr* call, const clang::Expr* container,
     const std::string& call_name) {
-    const auto source_manager = result.SourceManager;
+    auto* const source_manager = result.SourceManager;
     const auto lang_options = result.Context->getLangOpts();
 
     auto container_range = clang::CharSourceRange::getTokenRange(container->getSourceRange());
@@ -51,7 +51,7 @@ void MemberBeginEndFixerTransformer::run_impl(
 
     bool is_arrow = false;
 
-    if (const auto member_expr = llvm::dyn_cast<clang::MemberExpr>(call->getCallee())) {
+    if (const auto* const member_expr = llvm::dyn_cast<clang::MemberExpr>(call->getCallee())) {
         is_arrow = member_expr->isArrow();
     }
 

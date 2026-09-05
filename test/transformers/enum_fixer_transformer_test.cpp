@@ -94,7 +94,7 @@ int main(){
     auto matches = match(matcher, AST->getASTContext());
     ASSERT_EQ(matches.size(), 1);
     using namespace clang;
-    const auto result_enum_ref = matches[0].getNodeAs<DeclRefExpr>("enum_ref");
+    const auto* const result_enum_ref = matches[0].getNodeAs<DeclRefExpr>("enum_ref");
     ASSERT_TRUE(result_enum_ref->hasQualifier());
     auto qualifier_loc = result_enum_ref->getQualifierLoc();
     std::string qualifier_text =

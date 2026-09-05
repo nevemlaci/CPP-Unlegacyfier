@@ -14,7 +14,7 @@ class ReplacementsMapWrapper {
     using iterator = std::map<std::string, clang::tooling::Replacements>::iterator;
     explicit ReplacementsMapWrapper(std::map<std::string, clang::tooling::Replacements>& map);
 
-    void add_replacement(const clang::tooling::Replacement rep);
+    void add_replacement(const clang::tooling::Replacement& rep);
 
     iterator begin() { return m_map.begin(); }
 

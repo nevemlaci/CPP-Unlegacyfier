@@ -11,7 +11,8 @@ UnlegacyfierFrontend::UnlegacyfierFrontend(UnlegacyfierConfig config,
     : config(config), shared_replacement_map(shared_replacement_map) {}
 
 std::unique_ptr<clang::ASTConsumer>
-UnlegacyfierFrontend::CreateASTConsumer(clang::CompilerInstance& compiler, llvm::StringRef inFile) {
+UnlegacyfierFrontend::CreateASTConsumer(clang::CompilerInstance& compiler,
+                                        llvm::StringRef /*inFile*/) {
     return std::make_unique<UnlegacyfierConsumer>(compiler.getASTContext(), config,
                                                   shared_replacement_map);
 }

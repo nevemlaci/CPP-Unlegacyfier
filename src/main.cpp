@@ -7,10 +7,13 @@
 #include <clang/Tooling/ArgumentsAdjusters.h>
 #include <clang/Tooling/CommonOptionsParser.h>
 #include <clang/Tooling/Refactoring.h>
+#include <cstdint>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/raw_ostream.h>
 
-enum FrontendEnum { DiffPrint, Yaml, VsCode };
+namespace {
+enum class FrontendEnum : std::uint8_t { DiffPrint, Yaml, VsCode };
+}
 
 // clang-format off
 static llvm::cl::OptionCategory ToolCategory("C++ Unlegacyfier");
@@ -46,9 +49,9 @@ static llvm::cl::list<FrontendEnum> Frontends(
     "frontends", 
     llvm::cl::desc("Set enabled frontends."),
     llvm::cl::values(
-        clEnumValN(DiffPrint, "diff", "Print all changes suggested by the tool in the diff format."),
-        clEnumValN(Yaml, "yaml", "Print all changes suggested by the tool in the clang yaml format."),
-        clEnumValN(VsCode, "vscode", "Print all changes suggested by the tool in the vscode.diff JSON format.")
+        clEnumValN(FrontendEnum::DiffPrint, "diff", "Print all changes suggested by the tool in the diff format."),
+        clEnumValN(FrontendEnum::Yaml, "yaml", "Print all changes suggested by the tool in the clang yaml format."),
+        clEnumValN(FrontendEnum::VsCode, "vscode", "Print all changes suggested by the tool in the vscode.diff JSON format.")
     ),
     llvm::cl::CommaSeparated,
     llvm::cl::cat(ToolCategory)
@@ -66,8 +69,13 @@ int main(int argc, const char** argv) {
                                          optionsParser.getSourcePathList());
     auto& map = tool.getReplacements();
     nl::ReplacementsMapWrapper shared_replacement_map(map);
-    UnlegacyfierConfig config{OptEnumFixer, OptBeginEnd, OptShorterFunctor, OptAddMissingOverride,
-                              OptReplaceTypedefWithUsing};
+    UnlegacyfierConfig config{
+        .EnableEnumFixer = OptEnumFixer,
+        .EnableBeginEndFixer = OptBeginEnd,
+        .EnableShorterFunctor = OptShorterFunctor,
+        .EnableAddMissingOverride = OptAddMissingOverride,
+        .EnableReplaceTypedefWithUsing = OptReplaceTypedefWithUsing,
+    };
 
     tool.appendArgumentsAdjuster(clang::tooling::getInsertArgumentAdjuster(
         "-w", clang::tooling::ArgumentInsertPosition::BEGIN));
@@ -82,13 +90,13 @@ int main(int argc, const char** argv) {
     VsCodePreviewFrontend vscode_frontend(shared_replacement_map);
     for (auto frontend : Frontends) {
         switch (frontend) {
-            case DiffPrint:
+            case FrontendEnum::DiffPrint:
                 diff_print_frontend.print_diagnostics();
                 break;
-            case Yaml:
+            case FrontendEnum::Yaml:
                 yaml_frontend.export_to_yaml("fixes.yaml");
                 break;
-            case VsCode:
+            case FrontendEnum::VsCode:
                 vscode_frontend.generate_preview();
                 break;
         }

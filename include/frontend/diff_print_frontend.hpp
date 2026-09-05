@@ -8,9 +8,6 @@
 class DiffPrintFrontend {
     nl::ReplacementMapRef replacement_map;
 
-    std::array<unsigned, 2> get_file_position_from_byte_offset(unsigned offset,
-                                                               llvm::StringRef content);
-
     std::vector<std::string> split_lines(const std::string& str);
 
   public:

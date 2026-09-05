@@ -18,14 +18,14 @@ void ReplaceTypedefWithUsingTransformer::start(clang::ast_matchers::MatchFinder&
 void ReplaceTypedefWithUsingTransformer::run(
     const clang::ast_matchers::MatchFinder::MatchResult& result) {
     using namespace clang;
-    const auto typedef_decl = result.Nodes.getNodeAs<TypedefDecl>("typedef");
-    if (!typedef_decl) {
+    const auto* const typedef_decl = result.Nodes.getNodeAs<TypedefDecl>("typedef");
+    if (typedef_decl == nullptr) {
         return;
     }
 
-    auto tag = typedef_decl->getUnderlyingType()->getAsTagDecl();
+    auto* tag = typedef_decl->getUnderlyingType()->getAsTagDecl();
 
-    if (tag && !tag->getIdentifier() && tag->isEmbeddedInDeclarator()) {
+    if ((tag != nullptr) && (tag->getIdentifier() == nullptr) && tag->isEmbeddedInDeclarator()) {
         // unnamed typedeffed struct/enum
         return;
     }

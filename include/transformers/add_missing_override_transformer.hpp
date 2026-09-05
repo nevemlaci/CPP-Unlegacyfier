@@ -15,6 +15,5 @@ class AddMissingOverrideTransformer : public Transformer {
   private:
     clang::SourceLocation find_last_equals_sign_in_method_decl(
         const clang::ast_matchers::MatchFinder::MatchResult& result,
-        const clang::CXXMethodDecl* const method
-    );
+        const clang::CXXMethodDecl* const method);
 };

@@ -11,10 +11,7 @@ class MemberBeginEndFixerTransformer : public Transformer {
     virtual void run(const clang::ast_matchers::MatchFinder::MatchResult& result) override;
 
   private:
-    void run_impl(
-        const clang::ast_matchers::MatchFinder::MatchResult& result,
-        const clang::CXXMemberCallExpr* call,
-        const clang::Expr* container,
-        const std::string& call_name
-    );
+    void run_impl(const clang::ast_matchers::MatchFinder::MatchResult& result,
+                  const clang::CXXMemberCallExpr* call, const clang::Expr* container,
+                  const std::string& call_name);
 };

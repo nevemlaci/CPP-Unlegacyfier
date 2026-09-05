@@ -13,9 +13,9 @@ void AddMissingOverrideTransformer::start(clang::ast_matchers::MatchFinder& find
 void AddMissingOverrideTransformer::run(
     const clang::ast_matchers::MatchFinder::MatchResult& result) {
     using namespace clang;
-    const auto method = result.Nodes.getNodeAs<CXXMethodDecl>("overriding_method");
+    const auto* const method = result.Nodes.getNodeAs<CXXMethodDecl>("overriding_method");
 
-    if (!method || method->hasAttr<OverrideAttr>() || method->hasAttr<FinalAttr>()) {
+    if ((method == nullptr) || method->hasAttr<OverrideAttr>() || method->hasAttr<FinalAttr>()) {
         return;
     }
 

@@ -10,14 +10,14 @@ void ShorterFunctionObjectTransformer::run(
     const clang::ast_matchers::MatchFinder::MatchResult& result) {
     using namespace clang;
 
-    const auto expr = result.Nodes.getNodeAs<CXXTemporaryObjectExpr>("functor_expr");
-    if (!expr) {
+    const auto* const expr = result.Nodes.getNodeAs<CXXTemporaryObjectExpr>("functor_expr");
+    if (expr == nullptr) {
         return;
     }
 
-    auto type_source_info = expr->getTypeSourceInfo();
+    auto* type_source_info = expr->getTypeSourceInfo();
 
-    if (!type_source_info) {
+    if (type_source_info == nullptr) {
         return;
     }
 

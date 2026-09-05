@@ -1,0 +1,26 @@
+---
+Checks: >
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  performance-*,
+  modernize-*,
+  readability-*,
+  misc-*,
+  -modernize-use-trailing-return-type,
+  -modernize-avoid-c-arrays,
+  -readability-magic-numbers,
+  -readability-braces-around-statements,
+  -readability-identifier-length,
+  -misc-non-private-member-variables-in-classes,
+  -misc-use-anonymous-namespace
+
+# Do not treat any warnings as errors yet
+WarningsAsErrors: ''
+
+# Only lint the source file being compiled, not included headers.
+# Change to '.*' to lint project headers (may catch third-party code).
+HeaderFilterRegex: ''
+
+# Defer to your .clang-format file for styling (requires a .clang-format file)
+FormatStyle: 'file'

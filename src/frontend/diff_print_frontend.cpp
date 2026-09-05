@@ -3,23 +3,6 @@
 #include <dtl/dtl.hpp>
 #include <sstream>
 
-std::array<unsigned, 2>
-DiffPrintFrontend::get_file_position_from_byte_offset(unsigned offset, llvm::StringRef content) {
-    unsigned line = 1;
-    unsigned column = 1;
-
-    for (unsigned i = 0; i < offset && i < content.size(); ++i) {
-        if (content[i] == '\n') {
-            line++;
-            column = 1;
-        } else {
-            column++;
-        }
-    }
-
-    return {line, column};
-}
-
 std::vector<std::string> DiffPrintFrontend::split_lines(const std::string& str) {
     std::vector<std::string> lines;
     std::stringstream ss(str);

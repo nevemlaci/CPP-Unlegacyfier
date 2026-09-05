@@ -5,7 +5,8 @@
 #include "transformers/replace_typedef_with_using_transformer.hpp"
 #include "transformers/shorter_function_object_transformer.hpp"
 
-UnlegacyfierConsumer::UnlegacyfierConsumer(clang::ASTContext& context, UnlegacyfierConfig config,
+UnlegacyfierConsumer::UnlegacyfierConsumer(clang::ASTContext& /*context*/,
+                                           UnlegacyfierConfig config,
                                            nl::ReplacementMapRef shared_replacement_map)
     : config(config), shared_replacement_map(shared_replacement_map) {}
 
@@ -39,7 +40,7 @@ void UnlegacyfierConsumer::HandleTranslationUnit(clang::ASTContext& context) {
 
     finder.matchAST(context);
 
-    auto buffer = rewriter.getRewriteBufferFor(context.getSourceManager().getMainFileID());
+    const auto* buffer = rewriter.getRewriteBufferFor(context.getSourceManager().getMainFileID());
 
     if (buffer != nullptr) {
         buffer->write(llvm::outs());

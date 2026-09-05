@@ -47,15 +47,15 @@ void ClassOwnedPointerToUniqueTransformer::run(
     const clang::ast_matchers::MatchFinder::MatchResult& result) {
     using namespace clang;
 
-    const auto delete_expr = result.Nodes.getNodeAs<CXXDeleteExpr>("delete_expr");
-    const auto field = result.Nodes.getNodeAs<FieldDecl>("pointer_field");
+    const auto* const delete_expr = result.Nodes.getNodeAs<CXXDeleteExpr>("delete_expr");
+    const auto* const field = result.Nodes.getNodeAs<FieldDecl>("pointer_field");
 
-    if (!delete_expr || !field) {
+    if ((delete_expr == nullptr) || (field == nullptr)) {
         return;
     }
 
     auto& source_manager = *result.SourceManager;
-    auto& lang_opts = result.Context->getLangOpts();
+    const auto& lang_opts = result.Context->getLangOpts();
 
     CharSourceRange delete_range = CharSourceRange::getTokenRange(delete_expr->getSourceRange());
     tooling::Replacement erease_delete_rep(source_manager, delete_range, "");
@@ -64,8 +64,8 @@ void ClassOwnedPointerToUniqueTransformer::run(
     auto pointee_type = field->getType()->getPointeeType();
     std::string new_type_name = std::format("std::unique_ptr<{}>", pointee_type.getAsString());
 
-    auto type_source_info = field->getTypeSourceInfo();
-    if (type_source_info) {
+    auto* type_source_info = field->getTypeSourceInfo();
+    if (type_source_info != nullptr) {
         auto type_range =
             CharSourceRange::getTokenRange(type_source_info->getTypeLoc().getSourceRange());
 

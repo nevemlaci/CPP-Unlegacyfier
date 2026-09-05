@@ -24,6 +24,7 @@ class UnlegacyfierFrontend : public clang::ASTFrontendAction {
   public:
     UnlegacyfierFrontend(UnlegacyfierConfig config, nl::ReplacementMapRef shared_replacement_map);
 
-    virtual std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance& compiler,
-                                                                  llvm::StringRef inFile) override;
+  protected:
+    std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance& compiler,
+                                                          llvm::StringRef inFile) override;
 };

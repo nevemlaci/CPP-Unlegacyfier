@@ -21,22 +21,20 @@ void ShorterFunctionObjectTransformer::run(
         return;
     }
 
-    auto type_loc = type_source_info->getTypeLoc().IgnoreParens();
-
-    if (auto elaborated = type_loc.getAs<ElaboratedTypeLoc>()) {
-        type_loc = elaborated.getNamedTypeLoc();
-    }
-
-    if (auto spec_loc = type_loc.getAs<TemplateSpecializationTypeLoc>()) {
+    if (auto spec_loc =
+            type_source_info->getTypeLoc().getAsAdjusted<TemplateSpecializationTypeLoc>()) {
         auto left_angled = spec_loc.getLAngleLoc();
         auto right_angled = spec_loc.getRAngleLoc();
 
         if (left_angled.isValid()) {
             auto sstart = left_angled.getLocWithOffset(1);
             auto range = CharSourceRange::getCharRange(sstart, right_angled);
+            auto diagnostic =
+                create_diagnostic("Use shorter form function objects", spec_loc.getBeginLoc());
 
-            tooling::Replacement rep(*result.SourceManager, range, "");
-            shared_replacement_map.add_replacement(rep);
+            diagnostic << FixItHint::CreateRemoval(range);
+            // tooling::Replacement rep(*result.SourceManager, range, "");
+            // shared_replacement_map.add_replacement(rep);
         }
     }
 }

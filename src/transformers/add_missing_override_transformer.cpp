@@ -39,9 +39,12 @@ void AddMissingOverrideTransformer::run(
     }
 
     if (insert_location.isValid()) {
-        tooling::Replacement rep(*result.SourceManager, insert_location, 0, " override ");
+        auto builder = create_diagnostic(
+            "Member function overrides a virtual function but is not marked override or final.",
+            method->getLocation(), DiagnosticsEngine::Warning);
+        // tooling::Replacement const rep(*result.SourceManager, insert_location, 0, " override ");
 
-        shared_replacement_map.add_replacement(rep);
+        // shared_replacement_map.add_replacement(rep);
     }
 }
 

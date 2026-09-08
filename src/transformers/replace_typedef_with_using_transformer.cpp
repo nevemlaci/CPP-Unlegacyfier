@@ -54,7 +54,11 @@ void ReplaceTypedefWithUsingTransformer::run(
 
     auto replace_range = CharSourceRange::getTokenRange(typedef_decl->getSourceRange());
 
-    tooling::Replacement rep(*result.SourceManager, replace_range, replacement_text);
+    auto diagnostic =
+        create_diagnostic("Replace typedef with using directive", type_range.getBegin());
+    diagnostic << FixItHint::CreateReplacement(replace_range, replacement_text);
 
-    shared_replacement_map.add_replacement(rep);
+    // tooling::Replacement rep(*result.SourceManager, replace_range, replacement_text);
+
+    // shared_replacement_map.add_replacement(rep);
 }

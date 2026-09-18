@@ -28,8 +28,8 @@ void EnumFixerTransformer::run(const clang::ast_matchers::MatchFinder::MatchResu
         if (result.SourceManager->isInSystemHeader(enumDecl->getSourceRange().getBegin())) {
             return;
         }
-        const auto decl_replacement_diagnostic = create_diagnostic(
-            "Use a scoped enum.", enumDecl->getLocation(), DiagnosticsEngine::Level::Warning);
+        const auto decl_replacement_diagnostic =
+            create_diagnostic("Use a scoped enum.", enumDecl->getLocation());
         decl_replacement_diagnostic
             << FixItHint::CreateInsertion(enumDecl->getLocation(), "class ");
         // tooling::Replacement rep(*result.SourceManager, enumDecl->getLocation(), 0, "class ");
@@ -50,8 +50,7 @@ void EnumFixerTransformer::run(const clang::ast_matchers::MatchFinder::MatchResu
 
         auto qualifier = enum_d->getNameAsString() + "::";
         auto enum_ref_diagnostic =
-            create_diagnostic("Add qualifier to enum reference", refExpr->getBeginLoc(),
-                              DiagnosticsEngine::Level::Warning);
+            create_diagnostic("Add qualifier to enum reference", refExpr->getBeginLoc());
 
         enum_ref_diagnostic << FixItHint::CreateInsertion(refExpr->getBeginLoc(), qualifier);
         // tooling::Replacement rep(*result.SourceManager, refExpr->getBeginLoc(), 0, qualifier);

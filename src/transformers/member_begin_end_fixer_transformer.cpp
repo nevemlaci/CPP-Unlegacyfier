@@ -63,9 +63,8 @@ void MemberBeginEndFixerTransformer::run_impl(
     }
 
     auto call_range = clang::CharSourceRange::getTokenRange(call->getSourceRange());
-    auto diagnostic =
-        create_diagnostic("Replace .begin() and .end() calls with std::begin / std::end.",
-                          call_range.getBegin(), clang::DiagnosticsEngine::Warning);
+    auto diagnostic = create_diagnostic(
+        "Replace .begin() and .end() calls with std::begin / std::end.", call_range.getBegin());
 
     diagnostic << clang::FixItHint::CreateReplacement(call_range.getBegin(), new_text);
     // clang::tooling::Replacement rep(*source_manager, call_range, new_text, lang_options);

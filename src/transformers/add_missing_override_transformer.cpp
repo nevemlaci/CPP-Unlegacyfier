@@ -41,7 +41,7 @@ void AddMissingOverrideTransformer::run(
     if (insert_location.isValid()) {
         auto builder = create_diagnostic(
             "Member function overrides a virtual function but is not marked override or final.",
-            method->getLocation(), DiagnosticsEngine::Warning);
+            method->getLocation());
         // tooling::Replacement const rep(*result.SourceManager, insert_location, 0, " override ");
 
         // shared_replacement_map.add_replacement(rep);

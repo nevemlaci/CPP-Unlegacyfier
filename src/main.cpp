@@ -1,4 +1,5 @@
-﻿#include "frontend/diff_print_frontend.hpp"
+﻿#include "diagnostic_consumer.hpp"
+#include "frontend/diff_print_frontend.hpp"
 #include "frontend/unlegacyfier_factory.hpp"
 #include "frontend/vscode_preview_frontend.hpp"
 #include "frontend/yaml_frontend.hpp"
@@ -7,7 +8,6 @@
 #include <clang/Tooling/ArgumentsAdjusters.h>
 #include <clang/Tooling/CommonOptionsParser.h>
 #include <clang/Tooling/Refactoring.h>
-#include <cstdint>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/raw_ostream.h>
 
@@ -83,6 +83,10 @@ int main(int argc, const char** argv) {
         "-resource-dir=" CLANG_RESOURCE_DIR, clang::tooling::ArgumentInsertPosition::BEGIN));
 
     UnlegacyfierActionFactory factory(config, shared_replacement_map);
+
+    FixItInterceptingConsumer consumer(shared_replacement_map);
+
+    tool.setDiagnosticConsumer(&consumer);
 
     auto result = tool.run(&factory);
     DiffPrintFrontend diff_print_frontend(shared_replacement_map);

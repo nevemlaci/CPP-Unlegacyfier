@@ -59,6 +59,7 @@ add_library(unlegacyfier_core STATIC
         src/frontend/yaml_frontend.cpp
         src/frontend/diff_print_frontend.cpp
         src/frontend/vscode_preview_frontend.cpp
+        src/diagnostic_consumer.cpp
 )
 
 target_include_directories(unlegacyfier_core PUBLIC include vendor)

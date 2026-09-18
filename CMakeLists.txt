@@ -78,7 +78,11 @@ add_executable(unlegacyfier
 target_link_libraries(unlegacyfier PRIVATE unlegacyfier_core)
 
 # Test target
-add_executable(unlegacifyer_tests test/transformers/enum_fixer_transformer_test.cpp)
+add_executable(unlegacifyer_tests test/transformers/enum_fixer_transformer_test.cpp
+        test/testing_utilities/rewrite_code.cpp
+        test/transformers/shorter_function_object_transformer_test.cpp)
+
+target_include_directories(unlegacifyer_tests PRIVATE test/testing_utilities)
 
 target_link_libraries(unlegacifyer_tests PUBLIC GTest::gtest_main unlegacyfier_core)
 

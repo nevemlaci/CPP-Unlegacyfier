@@ -10,11 +10,9 @@
 class UnlegacyfierConsumer : public clang::ASTConsumer {
     clang::Rewriter rewriter;
     UnlegacyfierConfig config;
-    nl::ReplacementMapRef shared_replacement_map;
 
   public:
-    explicit UnlegacyfierConsumer(clang::ASTContext& context, UnlegacyfierConfig config,
-                                  nl::ReplacementMapRef shared_replacement_map);
+    explicit UnlegacyfierConsumer(clang::ASTContext& context, UnlegacyfierConfig config);
 
     void HandleTranslationUnit(clang::ASTContext& context) override;
 };

@@ -82,7 +82,7 @@ int main(int argc, const char** argv) {
     tool.appendArgumentsAdjuster(getInsertArgumentAdjuster(
         "-resource-dir=" CLANG_RESOURCE_DIR, clang::tooling::ArgumentInsertPosition::BEGIN));
 
-    UnlegacyfierActionFactory factory(config, shared_replacement_map);
+    UnlegacyfierActionFactory factory(config);
 
     FixItInterceptingConsumer consumer(shared_replacement_map);
 

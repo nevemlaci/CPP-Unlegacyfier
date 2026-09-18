@@ -19,10 +19,9 @@ class StringRef;
 class UnlegacyfierFrontend : public clang::ASTFrontendAction {
 
     UnlegacyfierConfig config;
-    nl::ReplacementMapRef shared_replacement_map;
 
   public:
-    UnlegacyfierFrontend(UnlegacyfierConfig config, nl::ReplacementMapRef shared_replacement_map);
+    UnlegacyfierFrontend(UnlegacyfierConfig config);
 
   protected:
     std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance& compiler,

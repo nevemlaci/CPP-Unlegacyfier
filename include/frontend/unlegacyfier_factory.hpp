@@ -9,10 +9,8 @@
 
 class UnlegacyfierActionFactory : public clang::tooling::FrontendActionFactory {
     UnlegacyfierConfig config;
-    nl::ReplacementMapRef shared_replacement_map;
 
   public:
-    UnlegacyfierActionFactory(UnlegacyfierConfig config,
-                              nl::ReplacementMapRef shared_replacement_map);
+    UnlegacyfierActionFactory(UnlegacyfierConfig config);
     std::unique_ptr<clang::FrontendAction> create() override;
 };

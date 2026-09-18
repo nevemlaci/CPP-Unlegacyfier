@@ -6,20 +6,17 @@
 #include "transformers/shorter_function_object_transformer.hpp"
 
 UnlegacyfierConsumer::UnlegacyfierConsumer(clang::ASTContext& /*context*/,
-                                           UnlegacyfierConfig config,
-                                           nl::ReplacementMapRef shared_replacement_map)
-    : config(config), shared_replacement_map(shared_replacement_map) {}
+                                           UnlegacyfierConfig config)
+    : config(config) {}
 
 void UnlegacyfierConsumer::HandleTranslationUnit(clang::ASTContext& context) {
     rewriter.setSourceMgr(context.getSourceManager(), context.getLangOpts());
 
-    EnumFixerTransformer enum_fixer(context, rewriter, shared_replacement_map);
-    MemberBeginEndFixerTransformer beginEndFixer(context, rewriter, shared_replacement_map);
-    ShorterFunctionObjectTransformer shorterFunctorFixer(context, rewriter, shared_replacement_map);
-    AddMissingOverrideTransformer addMissingOverrideTransformer(context, rewriter,
-                                                                shared_replacement_map);
-    ReplaceTypedefWithUsingTransformer replaceTypedefWithUsingTransformer(context, rewriter,
-                                                                          shared_replacement_map);
+    EnumFixerTransformer enum_fixer(context);
+    MemberBeginEndFixerTransformer beginEndFixer(context);
+    ShorterFunctionObjectTransformer shorterFunctorFixer(context);
+    AddMissingOverrideTransformer addMissingOverrideTransformer(context);
+    ReplaceTypedefWithUsingTransformer replaceTypedefWithUsingTransformer(context);
 
     clang::ast_matchers::MatchFinder finder;
     if (config.EnableEnumFixer) {

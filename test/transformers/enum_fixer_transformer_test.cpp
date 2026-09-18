@@ -1,3 +1,4 @@
+#include "diagnostic_consumer.hpp"
 #include "frontend/unlegacyfier_factory.hpp"
 
 #include "clang/AST/Decl.h"
@@ -8,34 +9,12 @@
 #include "clang/Lex/Lexer.h"
 #include "clang/Tooling/Tooling.h"
 
+#include <clang/Tooling/CompilationDatabase.h>
 #include <config/unlegacyfier_config.hpp>
 #include <gtest/gtest.h>
-#include <transformers/enum_fixer_transformer.hpp>
+#include <rewrite_code.hpp>
+
 using namespace clang::ast_matchers;
-
-std::string rewriteCode(const std::string& code, UnlegacyfierConfig config) {
-    std::map<std::string, clang::tooling::Replacements> raw_map;
-    nl::ReplacementsMapWrapper wrapper(raw_map); //[cite: 2]
-
-    UnlegacyfierActionFactory factory(config, wrapper);
-
-    std::vector<std::string> args = {"-std=c++17", "-fsyntax-only"};
-    bool success = clang::tooling::runToolOnCodeWithArgs(factory.create(), code, args, "input.cpp");
-
-    if (!success) {
-        return "";
-    }
-
-    auto file_replacements = raw_map["input.cpp"];
-    auto rewritten = clang::tooling::applyAllReplacements(code, file_replacements);
-
-    if (rewritten) {
-        return *rewritten;
-    }
-
-    llvm::consumeError(rewritten.takeError());
-    return "";
-}
 
 TEST(EnumFixerTest, ModifiedEnumIsScoped) {
     UnlegacyfierConfig config;
@@ -46,7 +25,7 @@ TEST(EnumFixerTest, ModifiedEnumIsScoped) {
 enum Color {Red, Green, Blue};
 )";
 
-    std::string rewritten = rewriteCode(input, config);
+    std::string rewritten = rewrite_code(input, config);
 
     std::unique_ptr<clang::ASTUnit> AST =
         clang::tooling::buildASTFromCodeWithArgs(rewritten, {"-std=c++17"});
@@ -73,7 +52,7 @@ int main(){
 }
 )";
 
-    std::string rewritten = rewriteCode(input, config);
+    std::string rewritten = rewrite_code(input, config);
 
     std::unique_ptr<clang::ASTUnit> AST =
         clang::tooling::buildASTFromCodeWithArgs(rewritten, {"-std=c++17"});
